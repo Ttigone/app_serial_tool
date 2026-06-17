@@ -8,7 +8,7 @@
 
 namespace serial {
 
-static const char* k_java_class = "com/serialtool/UsbSerialHelper";
+static const char* k_java_class = "s/t/UsbSerialHelper";
 
 android_serial_port::android_serial_port() = default;
 

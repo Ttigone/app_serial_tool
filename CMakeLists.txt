@@ -19,12 +19,8 @@ qt_add_executable(app_serial_tool
 
 # Android-specific sources
 if(ANDROID)
-    find_package(Qt6 REQUIRED COMPONENTS Core)
     target_sources(app_serial_tool PRIVATE
         src/platform/android/android_serial_port.cpp
-    )
-    target_link_libraries(app_serial_tool PRIVATE
-        Qt6::CorePrivate
     )
 endif()
 

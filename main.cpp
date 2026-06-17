@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     );
     if (activity.isValid()) {
         QJniObject::callStaticMethod<void>(
-            "com/serialtool/UsbSerialHelper",
+            "s/t/UsbSerialHelper",
             "initContext",
             "(Landroid/content/Context;)V",
             activity.object<jobject>()

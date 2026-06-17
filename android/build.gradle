@@ -1,22 +1,6 @@
-// Top-level build file for Android packaging
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
-    }
+plugins {
+    id 'com.android.application' version '8.7.3'
 }
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-apply plugin: 'com.android.application'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
@@ -24,11 +8,11 @@ dependencies {
 }
 
 android {
-    namespace 'com.serialtool'
+    namespace 's.t'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.serialtool"
+        applicationId "s.t"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
@@ -44,8 +28,7 @@ android {
         }
     }
 
-    // Qt provides the native library
-    lintOptions {
+    lint {
         abortOnError false
     }
 }

@@ -1,4 +1,4 @@
-package com.serialtool;
+package s.t;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -22,7 +22,7 @@ import java.util.List;
 public class UsbSerialHelper implements SerialInputOutputManager.Listener {
 
     private static final String TAG = "UsbSerialHelper";
-    private static final String ACTION_USB_PERMISSION = "com.serialtool.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "s.t.USB_PERMISSION";
 
     private static UsbSerialHelper instance;
 
@@ -41,14 +41,11 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         return instance;
     }
 
-    // called from C++ to initialize context
     public static void initContext(Context ctx) {
         getInstance().context = ctx.getApplicationContext();
         getInstance().usb_manager = (UsbManager) ctx.getSystemService(Context.USB_SERVICE);
     }
 
-    // enumerate available USB serial devices
-    // returns: [name0, vid0, pid0, driver0, name1, vid1, pid1, driver1, ...]
     public static String[] enumerateDevices(Context ctx) {
         UsbManager mgr = (UsbManager) ctx.getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> drivers = UsbSerialProber.getDefaultProber().findAllDrivers(mgr);
@@ -64,7 +61,6 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         return result.toArray(new String[0]);
     }
 
-    // request USB permission for a device
     public static void requestPermission(Context ctx, int device_index) {
         UsbManager mgr = (UsbManager) ctx.getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> drivers = UsbSerialProber.getDefaultProber().findAllDrivers(mgr);
@@ -77,7 +73,6 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         mgr.requestPermission(device, flags);
     }
 
-    // open a USB serial device
     public static boolean openDevice(Context ctx, int device_index,
                                       int baud_rate, int data_bits,
                                       int stop_bits, int parity, int flow_control) {
@@ -112,12 +107,11 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
             helper.serial_port.open(connection);
             helper.serial_port.setParameters(baud_rate, data_bits, stop_bits, parity);
 
-            if (flow_control == 1) { // hardware
+            if (flow_control == 1) {
                 helper.serial_port.setRTS(true);
                 helper.serial_port.setDTR(true);
             }
 
-            // start IO manager for async read
             helper.io_manager = new SerialInputOutputManager(helper.serial_port, helper);
             helper.io_manager.start();
 
@@ -132,7 +126,6 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         }
     }
 
-    // close the current serial port
     public static void closeDevice() {
         UsbSerialHelper helper = getInstance();
         try {
@@ -150,7 +143,6 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         helper.port_open = false;
     }
 
-    // update serial port configuration
     public static boolean setConfig(int baud_rate, int data_bits,
                                      int stop_bits, int parity, int flow_control) {
         UsbSerialHelper helper = getInstance();
@@ -165,13 +157,12 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         }
     }
 
-    // write data to serial port
     public static int write(byte[] data) {
         UsbSerialHelper helper = getInstance();
         if (!helper.port_open || helper.serial_port == null) return -1;
 
         try {
-            helper.serial_port.write(data, 1000); // 1s timeout
+            helper.serial_port.write(data, 1000);
             return data.length;
         } catch (Exception e) {
             Log.e(TAG, "Write error: " + e.getMessage());
@@ -179,7 +170,6 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         }
     }
 
-    // read data from serial port (blocking)
     public static int read(byte[] buffer, int timeout_ms) {
         UsbSerialHelper helper = getInstance();
         if (!helper.port_open || helper.serial_port == null) return -1;
@@ -192,10 +182,8 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         }
     }
 
-    // SerialInputOutputManager.Listener - async read callback
     @Override
     public void onNewData(byte[] data) {
-        // notify C++ layer via JNI callback
         nativeOnDataReceived(data, data.length);
     }
 
@@ -205,7 +193,6 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         nativeOnError(e.getMessage());
     }
 
-    // native callbacks - implemented in C++
     private static native void nativeOnDataReceived(byte[] data, int length);
     private static native void nativeOnError(String message);
 }
