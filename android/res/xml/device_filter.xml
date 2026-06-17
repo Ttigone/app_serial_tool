@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- USB device filter: match common USB-serial chip vendors -->
+    <!-- FTDI (vid=0x0403) -->
+    <usb-device vendor-id="1027" />
+    <!-- Silicon Labs CP210x (vid=0x10C4) -->
+    <usb-device vendor-id="4292" />
+    <!-- Prolific PL2303 (vid=0x067B) -->
+    <usb-device vendor-id="1659" />
+    <!-- CH340/CH341 (vid=0x1A86) -->
+    <usb-device vendor-id="6790" />
+    <!-- CH9102 (vid=0x1A86) -->
+    <!-- CDC/ACM generic -->
+    <usb-device class-id="2" subclass-id="0" protocol-id="0" />
+    <!-- QinHeng CH9102F -->
+    <usb-device vendor-id="6790" product-id="21795" />
+</resources>
