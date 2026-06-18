@@ -1,0 +1,77 @@
+﻿#ifndef FLUCOLORS_H
+#define FLUCOLORS_H
+
+#include <QObject>
+#include <QtQml/qqml.h>
+#include "FluColorSet.h"
+#include "FluMacro.h"
+
+/**
+ * @brief The FluColors class
+ */
+class FluColors : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY_AUTO(QString,Black);
+    Q_PROPERTY_AUTO(QString,White);
+    Q_PROPERTY_AUTO(QString,Grey10);
+    Q_PROPERTY_AUTO(QString,Grey20);
+    Q_PROPERTY_AUTO(QString,Grey30);
+    Q_PROPERTY_AUTO(QString,Grey40);
+    Q_PROPERTY_AUTO(QString,Grey50);
+    Q_PROPERTY_AUTO(QString,Grey60);
+    Q_PROPERTY_AUTO(QString,Grey70);
+    Q_PROPERTY_AUTO(QString,Grey80);
+    Q_PROPERTY_AUTO(QString,Grey90);
+    Q_PROPERTY_AUTO(QString,Grey100);
+    Q_PROPERTY_AUTO(QString,Grey110);
+    Q_PROPERTY_AUTO(QString,Grey120);
+    Q_PROPERTY_AUTO(QString,Grey130);
+    Q_PROPERTY_AUTO(QString,Grey140);
+    Q_PROPERTY_AUTO(QString,Grey150);
+    Q_PROPERTY_AUTO(QString,Grey160);
+    Q_PROPERTY_AUTO(QString,Grey170);
+    Q_PROPERTY_AUTO(QString,Grey180);
+    Q_PROPERTY_AUTO(QString,Grey190);
+    Q_PROPERTY_AUTO(QString,Grey200);
+    Q_PROPERTY_AUTO(QString,Grey210);
+    Q_PROPERTY_AUTO(QString,Grey220);
+    Q_PROPERTY_AUTO(QString,Wave1);
+    Q_PROPERTY_AUTO(QString,Wave2);
+    Q_PROPERTY_AUTO(QString,Wave3);
+    Q_PROPERTY_AUTO(QString,Wave4);
+    Q_PROPERTY_AUTO(QString,Wave5);
+    Q_PROPERTY_AUTO(QString,Wave6);
+    Q_PROPERTY_AUTO(QString,Wave7);
+    Q_PROPERTY_AUTO(QString,Wave8);
+    Q_PROPERTY_AUTO(QString,Wave9);
+    Q_PROPERTY_AUTO(QString,Wave10);
+    Q_PROPERTY_AUTO(QString,Wave11);
+    Q_PROPERTY_AUTO(QString,Wave12);
+    Q_PROPERTY_AUTO(QString,Wave13);
+    Q_PROPERTY_AUTO(QString,Wave14);
+    Q_PROPERTY_AUTO(QString,Wave15);
+    Q_PROPERTY_AUTO(QString,Wave16);
+
+
+
+    Q_PROPERTY_AUTO(FluColorSet*,Yellow);
+    Q_PROPERTY_AUTO(FluColorSet*,Orange);
+    Q_PROPERTY_AUTO(FluColorSet*,Red);
+    Q_PROPERTY_AUTO(FluColorSet*,Magenta);
+    Q_PROPERTY_AUTO(FluColorSet*,Purple);
+    Q_PROPERTY_AUTO(FluColorSet*,Blue);
+    Q_PROPERTY_AUTO(FluColorSet*,Teal);
+    Q_PROPERTY_AUTO(FluColorSet*,Green);
+private:
+    explicit FluColors(QObject *parent = nullptr);
+    static FluColors* m_instance;
+public:
+    static FluColors *getInstance();
+    static FluColors *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
+};
+
+#endif // FLUCOLORS_H

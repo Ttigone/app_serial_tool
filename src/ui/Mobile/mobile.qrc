@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MobileUI/MobileMain.qml</file>
+        <file>MobileUI/AnalysisPageM.qml</file>
+        <file>MobileUI/DeviceUpdateDialogM.qml</file>
+        <file>MobileUI/EscSettingPageM.qml</file>
+        <file>MobileUI/FirmwarePageM.qml</file>
+        <file>MobileUI/HistoryDataPageM.qml</file>
+        <file>MobileUI/LoadingDialogM.qml</file>
+        <file>MobileUI/ParamEnumItemM.qml</file>
+        <file>MobileUI/ParamFloatItemM.qml</file>
+        <file>MobileUI/ParamIntArrayItemM.qml</file>
+        <file>MobileUI/ParamIntItemM.qml</file>
+        <file>MobileUI/ParamStringItemM.qml</file>
+        <file>MobileUI/ParamTableM.qml</file>
+        <file>MobileUI/RealtimeDataPageM.qml</file>
+        <file>MobileUI/SE0640Dx4UpdateDialogM.qml</file>
+        <file>MobileUI/SettingPageM.qml</file>
+        <file>MobileUI/BluetoothDialogM.qml</file>
+        <file>MobileUI/FileBrowerM.qml</file>
+        <file>MobileUI/MainPageM.qml</file>
+        <file>MobileUI/ParamCustomSpeedDialogM.qml</file>
+        <file>MobileUI/PasswdDialogM.qml</file>
+        <file>MobileUI/SwipeArea.qml</file>
+    </qresource>
+</RCC>

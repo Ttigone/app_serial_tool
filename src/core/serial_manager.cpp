@@ -1,4 +1,4 @@
-                                    #include "serial_manager.h"
+#include "serial_manager.h"
 #include "src/platform/platform_serial_factory.h"
 
 #include <QByteArray>

@@ -11,7 +11,6 @@ Window {
 
     color: "#1a1a2e"
 
-    // Splash screen overlay
     Rectangle {
         id: splash
         anchors.fill: parent
@@ -39,8 +38,18 @@ Window {
 
                 SequentialAnimation on scale {
                     loops: Animation.Infinite
-                    NumberAnimation { from: 1.0; to: 1.15; duration: 800; easing.type: Easing.InOutQuad }
-                    NumberAnimation { from: 1.15; to: 1.0; duration: 800; easing.type: Easing.InOutQuad }
+                    NumberAnimation {
+                        from: 1.0
+                        to: 1.15
+                        duration: 800
+                        easing.type: Easing.InOutQuad
+                    }
+                    NumberAnimation {
+                        from: 1.15
+                        to: 1.0
+                        duration: 800
+                        easing.type: Easing.InOutQuad
+                    }
                 }
             }
 
@@ -69,10 +78,8 @@ Window {
         }
     }
 
-    // Main content with safe area support
     ColumnLayout {
         anchors.fill: parent
-        // Safe area margins from JNI (reliable on all Android devices)
         anchors.topMargin: serial_manager.safeAreaTop
         anchors.leftMargin: root.safeAreaMargins.left
         anchors.rightMargin: root.safeAreaMargins.right
@@ -80,7 +87,6 @@ Window {
 
         spacing: 10
 
-        // Connection panel
         GroupBox {
             Layout.fillWidth: true
             Layout.maximumWidth: 600
@@ -113,7 +119,7 @@ Window {
                         text: qsTr("Refresh")
                         font.pixelSize: 12
                         onClicked: {
-                            device_combo.model = serial_manager.enumerate_devices()
+                            device_combo.model = serial_manager.enumerate_devices();
                         }
                     }
                 }
@@ -168,16 +174,9 @@ Window {
                         }
 
                         onClicked: {
-                            var dev = device_combo.model[device_combo.currentIndex]
+                            var dev = device_combo.model[device_combo.currentIndex];
                             if (dev) {
-                                serial_manager.open_port(
-                                    dev.device_id,
-                                    baud_combo.currentValue,
-                                    data_bits_combo.currentValue,
-                                    stop_bits_combo.currentValue,
-                                    parity_combo.currentIndex,
-                                    0  // no flow control
-                                )
+                                serial_manager.open_port(dev.device_id, baud_combo.currentValue, data_bits_combo.currentValue, stop_bits_combo.currentValue, parity_combo.currentIndex, 0);
                             }
                         }
                     }
@@ -239,8 +238,8 @@ Window {
                         text: qsTr("Clear")
                         font.pixelSize: 12
                         onClicked: {
-                            receive_area.text = ""
-                            send_area.text = ""
+                            receive_area.text = "";
+                            send_area.text = "";
                         }
                     }
                 }
@@ -267,13 +266,13 @@ Window {
                             target: serial_manager
                             function onDataReceived(data) {
                                 if (hex_display.checked) {
-                                    var hex = ""
+                                    var hex = "";
                                     for (var i = 0; i < data.length; i++) {
-                                        hex += ("0" + data[i].charCodeAt(0).toString(16)).slice(-2).toUpperCase() + " "
+                                        hex += ("0" + data[i].charCodeAt(0).toString(16)).slice(-2).toUpperCase() + " ";
                                     }
-                                    receive_area.append(hex)
+                                    receive_area.append(hex);
                                 } else {
-                                    receive_area.append(data)
+                                    receive_area.append(data);
                                 }
                             }
                         }
@@ -329,27 +328,27 @@ Window {
                         }
 
                         onClicked: {
-                            var text = send_area.text
-                            if (text.length === 0) return
-
-                            var data
+                            var text = send_area.text;
+                            if (text.length === 0)
+                                return;
+                            var data;
                             if (hex_send.checked) {
                                 // parse hex string like "48 65 6C 6C 6F"
-                                var bytes = text.replace(/\s+/g, ' ').trim().split(' ')
-                                var arr = new Uint8Array(bytes.length)
+                                var bytes = text.replace(/\s+/g, ' ').trim().split(' ');
+                                var arr = new Uint8Array(bytes.length);
                                 for (var i = 0; i < bytes.length; i++) {
-                                    arr[i] = parseInt(bytes[i], 16)
+                                    arr[i] = parseInt(bytes[i], 16);
                                 }
-                                data = String.fromCharCode.apply(null, arr)
+                                data = String.fromCharCode.apply(null, arr);
                             } else {
-                                data = text
+                                data = text;
                                 if (auto_newline.checked) {
-                                    data += "\r\n"
+                                    data += "\r\n";
                                 }
                             }
 
-                            serial_manager.write_data(data)
-                            send_area.text = ""
+                            serial_manager.write_data(data);
+                            send_area.text = "";
                         }
                     }
                 }
@@ -360,14 +359,14 @@ Window {
     Connections {
         target: serial_manager
         function onErrorOccurred(message) {
-            status_label.text = qsTr("Error: ") + message
-            status_label.color = "#ff6b6b"
+            status_label.text = qsTr("Error: ") + message;
+            status_label.color = "#ff6b6b";
         }
     }
 
     Component.onCompleted: {
         // trigger initial device enumeration
-        var devices = serial_manager.enumerate_devices()
-        device_combo.model = devices
+        var devices = serial_manager.enumerate_devices();
+        device_combo.model = devices;
     }
 }
