@@ -41,6 +41,46 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
         return instance;
     }
 
+    public static int getStatusBarHeight(Context ctx) {
+        int result = 0;
+        int resourceId = ctx.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = ctx.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    public static int getNavigationBarHeight(Context ctx) {
+        int result = 0;
+        int resourceId = ctx.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = ctx.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    public static String[] getSafeAreaInsets(Context ctx) {
+        int[] insets = new int[4]; // top, left, right, bottom
+
+        // Status bar height (top inset)
+        int resourceId = ctx.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            insets[0] = ctx.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        // Navigation bar height (bottom inset)
+        resourceId = ctx.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            insets[3] = ctx.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        String[] result = new String[4];
+        for (int i = 0; i < 4; i++) {
+            result[i] = String.valueOf(insets[i]);
+        }
+        return result;
+    }
+
     public static void initContext(Context ctx) {
         getInstance().context = ctx.getApplicationContext();
         getInstance().usb_manager = (UsbManager) ctx.getSystemService(Context.USB_SERVICE);

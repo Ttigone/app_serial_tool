@@ -2,9 +2,55 @@
 #include "src/platform/platform_serial_factory.h"
 
 #include <QByteArray>
+#include <QGuiApplication>
+#include <QScreen>
 #include <QVariantMap>
 
+#ifdef Q_OS_ANDROID
+#include <QJniObject>
+#include <QJniEnvironment>
+#include <QtCore/qcoreapplication_platform.h>
+#endif
+
 namespace serial {
+
+static qreal calc_safe_area_top() {
+#ifdef Q_OS_ANDROID
+    QJniObject context = QNativeInterface::QAndroidApplication::context();
+    if (!context.isValid()) return 0;
+
+    jint px = QJniObject::callStaticMethod<jint>(
+        "s/t/UsbSerialHelper",
+        "getStatusBarHeight",
+        "(Landroid/content/Context;)I",
+        context.object()
+    );
+
+    qreal dpr = QGuiApplication::primaryScreen()->devicePixelRatio();
+    return px / dpr;
+#else
+    return 0;
+#endif
+}
+
+static qreal calc_safe_area_bottom() {
+#ifdef Q_OS_ANDROID
+    QJniObject context = QNativeInterface::QAndroidApplication::context();
+    if (!context.isValid()) return 0;
+
+    jint px = QJniObject::callStaticMethod<jint>(
+        "s/t/UsbSerialHelper",
+        "getNavigationBarHeight",
+        "(Landroid/content/Context;)I",
+        context.object()
+    );
+
+    qreal dpr = QGuiApplication::primaryScreen()->devicePixelRatio();
+    return px / dpr;
+#else
+    return 0;
+#endif
+}
 
 serial_manager& serial_manager::instance() {
     static serial_manager mgr;
@@ -94,6 +140,16 @@ bool serial_manager::is_open() const {
 int serial_manager::port_state_value() const {
     std::lock_guard<std::mutex> lock(mutex_);
     return static_cast<int>(current_state_);
+}
+
+qreal serial_manager::safeAreaTop() const {
+    static qreal val = calc_safe_area_top();
+    return val;
+}
+
+qreal serial_manager::safeAreaBottom() const {
+    static qreal val = calc_safe_area_bottom();
+    return val;
 }
 
 void serial_manager::on_data_received(const uint8_t* data, int size) {

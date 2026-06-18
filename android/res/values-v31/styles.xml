@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+ (API 31+) splash screen override -->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <!-- Override the default app icon splash with our custom icon -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_serial</item>
+        <item name="android:windowSplashScreenBackground">@color/splash_bg</item>
+        <!-- Keep splash visible until QML is ready -->
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+    </style>
+</resources>

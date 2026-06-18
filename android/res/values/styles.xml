@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:colorPrimary">#FF6200EE</item>
-        <item name="android:colorPrimaryDark">#FF3700B3</item>
-        <item name="android:colorAccent">#FF03DAC5</item>
+        <item name="android:colorPrimary">#FF1a1a2e</item>
+        <item name="android:colorPrimaryDark">#FF1a1a2e</item>
+        <item name="android:colorAccent">#FF0f3460</item>
+        <item name="android:statusBarColor">#FF1a1a2e</item>
+        <item name="android:navigationBarColor">#FF1a1a2e</item>
+        <item name="android:windowBackground">@color/splash_bg</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

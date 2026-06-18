@@ -17,6 +17,8 @@ class serial_manager : public QObject {
 
     Q_PROPERTY(bool is_open READ is_open NOTIFY state_changed)
     Q_PROPERTY(int port_state READ port_state_value NOTIFY state_changed)
+    Q_PROPERTY(qreal safeAreaTop READ safeAreaTop CONSTANT)
+    Q_PROPERTY(qreal safeAreaBottom READ safeAreaBottom CONSTANT)
 
 public:
     static serial_manager& instance();
@@ -37,6 +39,8 @@ public:
 
     bool is_open() const;
     int port_state_value() const;
+    qreal safeAreaTop() const;
+    qreal safeAreaBottom() const;
 
 signals:
     void state_changed();

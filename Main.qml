@@ -11,14 +11,80 @@ Window {
 
     color: "#1a1a2e"
 
+    // Splash screen overlay
+    Rectangle {
+        id: splash
+        anchors.fill: parent
+        color: "#1a1a2e"
+        z: 100
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 16
+
+            Rectangle {
+                width: 80
+                height: 80
+                radius: 40
+                color: "#0f3460"
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "ST"
+                    font.pixelSize: 28
+                    font.bold: true
+                    color: "#00ff88"
+                }
+
+                SequentialAnimation on scale {
+                    loops: Animation.Infinite
+                    NumberAnimation { from: 1.0; to: 1.15; duration: 800; easing.type: Easing.InOutQuad }
+                    NumberAnimation { from: 1.15; to: 1.0; duration: 800; easing.type: Easing.InOutQuad }
+                }
+            }
+
+            Text {
+                text: qsTr("Serial Tool")
+                font.pixelSize: 20
+                font.bold: true
+                color: "#e0e0e0"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+
+        OpacityAnimator on opacity {
+            id: splashFade
+            from: 1
+            to: 0
+            duration: 500
+            running: false
+            onFinished: splash.visible = false
+        }
+
+        Timer {
+            interval: 1200
+            running: true
+            onTriggered: splashFade.start()
+        }
+    }
+
+    // Main content with safe area support
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 12
+        // Safe area margins from JNI (reliable on all Android devices)
+        anchors.topMargin: serial_manager.safeAreaTop
+        anchors.leftMargin: root.safeAreaMargins.left
+        anchors.rightMargin: root.safeAreaMargins.right
+        anchors.bottomMargin: serial_manager.safeAreaBottom
+
         spacing: 10
 
-        // connection panel
+        // Connection panel
         GroupBox {
             Layout.fillWidth: true
+            Layout.maximumWidth: 600
+            Layout.alignment: Qt.AlignHCenter
             title: qsTr("Connection")
             font.pixelSize: 14
 
@@ -46,7 +112,9 @@ Window {
                     Button {
                         text: qsTr("Refresh")
                         font.pixelSize: 12
-                        onClicked: serial_manager.enumerate_devices()
+                        onClicked: {
+                            device_combo.model = serial_manager.enumerate_devices()
+                        }
                     }
                 }
 
@@ -139,10 +207,12 @@ Window {
             }
         }
 
-        // data display
+        // Data display
         GroupBox {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.maximumWidth: 600
+            Layout.alignment: Qt.AlignHCenter
             title: qsTr("Data")
             font.pixelSize: 14
 
