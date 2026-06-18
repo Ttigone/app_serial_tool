@@ -1,0 +1,5 @@
+﻿<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="my_shared_files1" path="TestCaseData/" />
+    <external-path name="my_shared_files2" path="Documents/TestCaseData/"/>
+    <external-path name="my_shared_files3" path="/"/>
+</paths>
