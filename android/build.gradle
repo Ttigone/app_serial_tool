@@ -1,7 +1,4 @@
-plugins {
-    id 'com.android.application' version '8.7.3'
-    id 'base'
-}
+apply plugin: 'com.android.application'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])

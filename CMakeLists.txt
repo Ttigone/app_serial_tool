@@ -45,7 +45,8 @@ target_link_libraries(app_serial_tool
     PRIVATE Qt6::Quick
 )
 
-# Android-specific configuration
+
+# 使用安卓套件
 if(ANDROID)
     set_target_properties(app_serial_tool PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android
