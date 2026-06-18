@@ -62,13 +62,11 @@ public class UsbSerialHelper implements SerialInputOutputManager.Listener {
     public static String[] getSafeAreaInsets(Context ctx) {
         int[] insets = new int[4]; // top, left, right, bottom
 
-        // Status bar height (top inset)
         int resourceId = ctx.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             insets[0] = ctx.getResources().getDimensionPixelSize(resourceId);
         }
 
-        // Navigation bar height (bottom inset)
         resourceId = ctx.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {
             insets[3] = ctx.getResources().getDimensionPixelSize(resourceId);

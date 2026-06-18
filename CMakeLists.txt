@@ -17,7 +17,6 @@ qt_add_executable(app_serial_tool
     src/platform/desktop/desktop_serial_port.cpp
 )
 
-# Android-specific sources
 if(ANDROID)
     target_sources(app_serial_tool PRIVATE
         src/platform/android/android_serial_port.cpp
