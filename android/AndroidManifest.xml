@@ -8,6 +8,8 @@
 
     <application
         android:label="Serial Tool"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:allowBackup="true"
         android:theme="@style/AppTheme">
 
@@ -45,12 +47,12 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.qtprovider"
+            android:authorities="sinemotion.tool.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/qtprovider_paths"/>
+                android:resource="@xml/filepaths"/>
         </provider>
     </application>
 </manifest>

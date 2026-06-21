@@ -12,8 +12,7 @@
 
 package org.sinemo.utils;
 
-import org.qtproject.qt5.android.QtNative;
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 
 import java.lang.String;
 import android.content.Intent;
@@ -40,20 +39,14 @@ import android.os.Parcelable;
 
 import android.os.Build;
 
-import android.support.v4.content.FileProvider;
-import android.support.v4.app.ShareCompat;
-
+import androidx.core.content.FileProvider;
+import androidx.core.app.ShareCompat;
 
 
 public class ShareIntent
 {
     public static void shareFile(QtActivity activity, String file_name)
     {
-
-       //String file_name = Environment.getExternalStorageDirectory()  + "/要分享的文件夹/文件.txt";
-        //String external_dir = Environment.getExternalStorageDirectory();
-        //Log.d("getExternalStorageDirectory: ", external_dir);
-
        final Uri  appUri ;
        final File new_file = new File(file_name);
 
