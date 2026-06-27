@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        maven { url "file:///F:/work/app_serial_tool_repo" }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }

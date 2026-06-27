@@ -24,7 +24,7 @@
 | `gradle-8.7-bin.zip` | https://services.gradle.org/distributions/gradle-8.7-bin.zip |
 | `gradle-wrapper.jar` | https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar |
 
-### ⚠️ 重要：验证 `gradle-wrapper.jar`
+###  重要：验证 `gradle-wrapper.jar`
 
 下载后必须验证 jar 是否完整。用压缩软件打开 `gradle-wrapper.jar`，查看 `META-INF/MANIFEST.MF` 文件内容，必须包含：
 ```
