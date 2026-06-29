@@ -83,6 +83,8 @@ F:/1/android-build-app_serial_tool/src/s/t/UsbSerialHelper.java.
 
 */
 
+// TODO serial 参照 https://github.com/betaflight/betaflight-configurator/blob/67101e5294d1f96262de69df700bd500e9002260/android/app/src/main/java/betaflight/app/protocols/serial/BetaflightSerialPlugin.java
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
